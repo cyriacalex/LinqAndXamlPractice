@@ -58,7 +58,23 @@ namespace LinqXamlPractice
                 Year2.Clear();
                 YearCheckBox.IsChecked = false;
             }
+
+            List<Person> newList = (List<Person>)PersonList();
+            newList = newList.FindAll(s => CheckYear(s, int.Parse(Year1.Text), int.Parse(Year2.Text)));
+            dataGrid.ItemsSource = null;
+            dataGrid.ItemsSource = newList;
+            ((CheckBox)sender).IsChecked = false;
+
         }
+
+        private static bool CheckYear(Person currentPerson, int year1, int year2)
+        {
+            if (year1 < currentPerson.startDate && currentPerson.startDate < year2)
+                return true;
+            else
+                return false;
+        }
+
 
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
         {
@@ -74,8 +90,14 @@ namespace LinqXamlPractice
                 newList.Sort((Person x, Person y) => x.startDate.CompareTo(y.startDate));
             dataGrid.ItemsSource = null;
             dataGrid.ItemsSource = newList;
+            
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            dataGrid.ItemsSource = null;
+            dataGrid.ItemsSource = PersonList();
+        }
     }
     public class Person
     {
