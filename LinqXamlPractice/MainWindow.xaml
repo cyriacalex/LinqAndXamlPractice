@@ -14,7 +14,7 @@
         <Button Content="Refresh" Click="Button_Click" Margin="10,133,629,10" Grid.Row="1"/>
         <Label Content="Selected Item" Margin="0,0,666,153"/>
         <Label Content="Date Filter Between Two Years:" Margin="0,109,629,82"/>
-        <TextBox Text="TextBox" TextWrapping="Wrap" Margin="8,32,699,153"/>
+        <TextBox Text="TextBox" Name ="SelectedPersonTextBox" TextWrapping="Wrap" Margin="8,32,699,153"/>
         <CheckBox Name="YearCheckBox" Margin="8,140,775,58" Checked="CheckBox_Checked"/>
         <TextBox Name="Year1" Text="Year 1" InputScope="Number" TextWrapping="Wrap" Margin="34,134,723,51"/>
         <TextBox Name="Year2" Text="Year 2" InputScope="Number" TextWrapping="Wrap" Margin="91,134,666,51"/>
@@ -22,13 +22,13 @@
         <RadioButton Content="Last Name" Name="LastName" Checked="RadioButton_Checked" Margin="8,34,699,164" Grid.Row="1"/>
         <RadioButton Content="Start Date" Name="StartDate" Checked="RadioButton_Checked" Margin="8,58,699,140" Grid.Row="1"/>
         <RadioButton Content="Rating" Name="Rating" Checked="RadioButton_Checked" Margin="8,82,699,116" Grid.Row="1"/>
-        <DataGrid Name ="dataGrid" Margin="312,10,21,10" Grid.RowSpan="2" ItemsSource="{Binding Source=personList}" AutoGenerateColumns ="False">
+        <DataGrid Name ="dataGrid" Margin="312,10,21,10" Grid.RowSpan="2" ItemsSource="{Binding Source=personList}" AutoGenerateColumns ="False"
+                   SelectionChanged="dataGrid_Selected">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="First Name" Binding="{Binding Path = firstName}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Last Name" Binding="{Binding Path = lastName}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Rating" Binding="{Binding Path = rating}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Start Date" Binding="{Binding Path = startDate}"></DataGridTextColumn>
-                <DataGridCheckBoxColumn Header="Select"></DataGridCheckBoxColumn>
             </DataGrid.Columns>
 
         </DataGrid>

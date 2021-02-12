@@ -41,9 +41,8 @@ namespace LinqXamlPractice
             personList.Add(new Person() { firstName = "Shirley", lastName = "Surely", rating = 2, startDate = 1875 });
             personList.Add(new Person() { firstName = "Kurt", lastName = "Russell", rating = 7, startDate = 2000 });
 
-            return personList;
+            return personList;           
         }
-
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
         {
             if (Year1.Text == null || Year2.Text == null)
@@ -51,7 +50,7 @@ namespace LinqXamlPractice
                 MessageBox.Show("Must enter two valid years");
                 YearCheckBox.IsChecked = false;
             }
-            if (!int.TryParse(Year1.Text, out int result) || !int.TryParse(Year2.Text, out int result2))
+            else if (!int.TryParse(Year1.Text, out int result) || !int.TryParse(Year2.Text, out int result2))
             {
                 MessageBox.Show("Must enter two valid years");
                 Year1.Clear();
@@ -59,12 +58,14 @@ namespace LinqXamlPractice
                 YearCheckBox.IsChecked = false;
             }
 
-            List<Person> newList = (List<Person>)PersonList();
-            newList = newList.FindAll(s => CheckYear(s, int.Parse(Year1.Text), int.Parse(Year2.Text)));
-            dataGrid.ItemsSource = null;
-            dataGrid.ItemsSource = newList;
-            ((CheckBox)sender).IsChecked = false;
-
+            else
+            {
+                List<Person> newList = (List<Person>)PersonList();
+                newList = newList.FindAll(s => CheckYear(s, int.Parse(Year1.Text), int.Parse(Year2.Text)));
+                dataGrid.ItemsSource = null;
+                dataGrid.ItemsSource = newList;
+                ((CheckBox)sender).IsChecked = false;
+            }
         }
 
         private static bool CheckYear(Person currentPerson, int year1, int year2)
@@ -78,8 +79,10 @@ namespace LinqXamlPractice
 
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
         {
+            SelectedPersonTextBox.Clear();
             List<Person> newList = new List<Person>();
-            newList = (List<Person>)PersonList();
+            //newList = (List<Person>)PersonList();
+            newList = (List<Person>)dataGrid.ItemsSource;
             if (((RadioButton)sender).Name == "FirstName")
                 newList.Sort((Person x, Person y) => x.firstName.CompareTo(y.firstName));               
             if (((RadioButton)sender).Name == "LastName")
@@ -95,8 +98,26 @@ namespace LinqXamlPractice
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            
+            SelectedPersonTextBox.Clear();
+            Year1.Clear();
+            Year2.Clear();
+            FirstName.IsChecked = false;
+            LastName.IsChecked = false;
+            Rating.IsChecked = false;
+            StartDate.IsChecked = false;
             dataGrid.ItemsSource = null;
             dataGrid.ItemsSource = PersonList();
+            
+        }
+
+        private void dataGrid_Selected(object sender, SelectionChangedEventArgs e)
+        {
+                Person selectedPerson = (Person)dataGrid.SelectedItem;
+            if ( selectedPerson != null)
+            {     
+                SelectedPersonTextBox.Text = $"{selectedPerson.firstName} {selectedPerson.lastName}, rating: {selectedPerson.rating}, start date: {selectedPerson.startDate}";
+            }
         }
     }
     public class Person
