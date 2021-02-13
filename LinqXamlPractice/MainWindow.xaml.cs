@@ -40,8 +40,10 @@ namespace LinqXamlPractice
             personList.Add(new Person() { firstName = "Marcus", lastName = "Brutus", rating = 9, startDate = 1900 });
             personList.Add(new Person() { firstName = "Shirley", lastName = "Surely", rating = 2, startDate = 1875 });
             personList.Add(new Person() { firstName = "Kurt", lastName = "Russell", rating = 7, startDate = 2000 });
+            personList.Add(new Person() { firstName = "Kurt", lastName = "Bob", rating = 2, startDate = 1941 });
+            personList.Add(new Person() { firstName = "Kurt", lastName = "Thomas", rating = 8, startDate = 1980 });
 
-            return personList;           
+            return personList;
         }
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
         {
@@ -60,63 +62,62 @@ namespace LinqXamlPractice
 
             else
             {
-                List<Person> newList = (List<Person>)PersonList();
-                newList = newList.FindAll(s => CheckYear(s, int.Parse(Year1.Text), int.Parse(Year2.Text)));
+                IEnumerable<Person> newList = (List<Person>)dataGrid.ItemsSource;
+                newList = newList.Where(x => x.startDate >= int.Parse(Year1.Text) && x.startDate <= int.Parse(Year2.Text)).ToList();
                 dataGrid.ItemsSource = null;
                 dataGrid.ItemsSource = newList;
                 ((CheckBox)sender).IsChecked = false;
             }
         }
 
-        private static bool CheckYear(Person currentPerson, int year1, int year2)
-        {
-            if (year1 < currentPerson.startDate && currentPerson.startDate < year2)
-                return true;
-            else
-                return false;
-        }
-
-
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
         {
             SelectedPersonTextBox.Clear();
-            List<Person> newList = new List<Person>();
-            //newList = (List<Person>)PersonList();
-            newList = (List<Person>)dataGrid.ItemsSource;
-            if (((RadioButton)sender).Name == "FirstName")
-                newList.Sort((Person x, Person y) => x.firstName.CompareTo(y.firstName));               
-            if (((RadioButton)sender).Name == "LastName")
-                newList.Sort((Person x, Person y) => x.lastName.CompareTo(y.lastName));
-            if (((RadioButton)sender).Name == "Rating")
-                newList.Sort((Person x, Person y) => x.rating.CompareTo(y.rating));
-            if (((RadioButton)sender).Name == "StartDate")
-                newList.Sort((Person x, Person y) => x.startDate.CompareTo(y.startDate));
-            dataGrid.ItemsSource = null;
-            dataGrid.ItemsSource = newList;
-            
+            IEnumerable<Person> newList = (List<Person>)dataGrid.ItemsSource;
+            if (RBFirstName.IsChecked.Value)
+                dataGrid.ItemsSource = newList.OrderBy(p => p.firstName).ToList();
+            else if (RBLastName.IsChecked.Value)
+                dataGrid.ItemsSource = newList.OrderBy(p => p.lastName).ToList();
+            else if (RBRating.IsChecked.Value)
+                dataGrid.ItemsSource = newList.OrderBy(p => p.rating).ToList();
+            else if (RBStartDate.IsChecked.Value)
+                dataGrid.ItemsSource = newList.OrderBy(p => p.startDate).ToList();
+
+            //How I did sorting previously
+            //newList.Sort((Person x, Person y) => x.startDate.CompareTo(y.startDate));
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            
             SelectedPersonTextBox.Clear();
             Year1.Clear();
             Year2.Clear();
-            FirstName.IsChecked = false;
-            LastName.IsChecked = false;
-            Rating.IsChecked = false;
-            StartDate.IsChecked = false;
+            RBFirstName.IsChecked = false;
+            RBLastName.IsChecked = false;
+            RBRating.IsChecked = false;
+            RBStartDate.IsChecked = false;
             dataGrid.ItemsSource = null;
             dataGrid.ItemsSource = PersonList();
-            
         }
 
         private void dataGrid_Selected(object sender, SelectionChangedEventArgs e)
         {
-                Person selectedPerson = (Person)dataGrid.SelectedItem;
-            if ( selectedPerson != null)
-            {     
+            Person selectedPerson = (Person)dataGrid.SelectedItem;
+            if (selectedPerson != null)
+            {
                 SelectedPersonTextBox.Text = $"{selectedPerson.firstName} {selectedPerson.lastName}, rating: {selectedPerson.rating}, start date: {selectedPerson.startDate}";
+            }
+        }
+
+        private void CBFirstName_Checked(object sender, RoutedEventArgs e)
+        {
+            if (TBName.Text == "" || TBName.Text == null)
+                MessageBox.Show("Enter a valid name");
+            else
+            {
+                IEnumerable<Person> newList = (List<Person>)dataGrid.ItemsSource;
+                newList = newList.Where(x => x.firstName == TBName.Text).ToList();
+                dataGrid.ItemsSource = newList;
             }
         }
     }
