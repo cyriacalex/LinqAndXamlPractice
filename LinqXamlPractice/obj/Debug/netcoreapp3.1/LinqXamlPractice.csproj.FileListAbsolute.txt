@@ -4,7 +4,6 @@ C:\Users\Alex\source\repos\LinqXamlPractice\LinqXamlPractice\bin\Debug\netcoreap
 C:\Users\Alex\source\repos\LinqXamlPractice\LinqXamlPractice\bin\Debug\netcoreapp3.1\LinqXamlPractice.runtimeconfig.dev.json
 C:\Users\Alex\source\repos\LinqXamlPractice\LinqXamlPractice\bin\Debug\netcoreapp3.1\LinqXamlPractice.dll
 C:\Users\Alex\source\repos\LinqXamlPractice\LinqXamlPractice\bin\Debug\netcoreapp3.1\LinqXamlPractice.pdb
-C:\Users\Alex\source\repos\LinqXamlPractice\LinqXamlPractice\obj\Debug\netcoreapp3.1\LinqXamlPractice.csprojAssemblyReference.cache
 C:\Users\Alex\source\repos\LinqXamlPractice\LinqXamlPractice\obj\Debug\netcoreapp3.1\MainWindow.g.cs
 C:\Users\Alex\source\repos\LinqXamlPractice\LinqXamlPractice\obj\Debug\netcoreapp3.1\App.g.cs
 C:\Users\Alex\source\repos\LinqXamlPractice\LinqXamlPractice\obj\Debug\netcoreapp3.1\LinqXamlPractice_MarkupCompile.cache
@@ -17,3 +16,4 @@ C:\Users\Alex\source\repos\LinqXamlPractice\LinqXamlPractice\obj\Debug\netcoreap
 C:\Users\Alex\source\repos\LinqXamlPractice\LinqXamlPractice\obj\Debug\netcoreapp3.1\LinqXamlPractice.dll
 C:\Users\Alex\source\repos\LinqXamlPractice\LinqXamlPractice\obj\Debug\netcoreapp3.1\LinqXamlPractice.pdb
 C:\Users\Alex\source\repos\LinqXamlPractice\LinqXamlPractice\obj\Debug\netcoreapp3.1\LinqXamlPractice.genruntimeconfig.cache
+C:\Users\Alex\source\repos\LinqXamlPractice\LinqXamlPractice\obj\Debug\netcoreapp3.1\LinqXamlPractice.csprojAssemblyReference.cache
